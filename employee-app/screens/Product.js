@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import api from "../src/services/api";
 
 export default function Product({navigation, route}) {
     navigation.setOptions({headerTitle: 'Colaborador'});
@@ -8,8 +9,8 @@ export default function Product({navigation, route}) {
 
     return (
         <View style={styles.productContainer}>
-            <Text style={styles.productTitle}>{item.title}</Text>
-            <Text style={styles.productDescription}>{item.description}</Text>
+            <Text style={styles.productTitle}>{item.name}</Text>
+            <Text style={styles.productDescription}>{item.identification_code}</Text>
             <View style={styles.box}>
                 <TouchableOpacity
                     style={styles.change}
@@ -20,6 +21,10 @@ export default function Product({navigation, route}) {
                 <TouchableOpacity
                     style={styles.remove}
                     onPress={() => {
+                        const id = item._id;
+                        api.delete(`/employee/${id}`);
+                        console.log("removendo -> " + id);
+                        navigation.navigate('Root', {props: id});
                     }}>
                     <Text style={styles.productButtonText}>Remover</Text>
                 </TouchableOpacity>
@@ -88,6 +93,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    box: {
-    }
+    box: {}
 });

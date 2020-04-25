@@ -14,7 +14,7 @@ export default class HomeScreen extends Component {
     }
 
     loadProducts = async (page = 1) => {
-        const response = await api.get(`/products?page=${page}`);
+        const response = await api.get(`/employee?page=${page}`);
         const {docs} = response.data;
         this.setState({docs: [...this.state.docs, ...docs]});
     };
@@ -31,8 +31,8 @@ export default class HomeScreen extends Component {
 
     renderItem = ({item}) => (
         <View style={styles.productContainer}>
-            <Text style={styles.productTitle}>{item.title}</Text>
-            <Text style={styles.productDescription}>{item.description}</Text>
+            <Text style={styles.productTitle}>{item.name}</Text>
+            <Text style={styles.productDescription}>{item.identification_code}</Text>
             <TouchableOpacity
                 style={styles.productButton}
                 onPress={() => {
